@@ -2,6 +2,7 @@
 package SAES;
 import java.util.ArrayList;
 import static SAES.Main.*; // IMPORTA TODOS LOS ARRAYLIST DE MAIN
+import javax.swing.JOptionPane;
 
 public class Inicio_Sesion extends javax.swing.JFrame {
     public Inicio_Sesion() {
@@ -91,11 +92,14 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     private void B_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_IniciarActionPerformed
         if(recorre_ArrayList(alumnos ,administradores,profesores))
         {
-          //SE INICIO SESION  
+          Menu_Administrador frame = new Menu_Administrador();
+          //JOptionPane.showMessageDialog(null,"INICIO DE SESION CORRECTO");
+          this.setVisible(false);
+          frame.setVisible(true);
         }
         else
         {
-           //DATOS INCORRECTOS 
+           JOptionPane.showMessageDialog(null,"DATOS INCORRECTOS PORFAVOR VUELVE A INTENTARLO");
         }
     }//GEN-LAST:event_B_IniciarActionPerformed
 
@@ -137,6 +141,18 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     public boolean recorre_ArrayList(ArrayList<Alumno> alumnos , ArrayList<Administrador> administradores,
     ArrayList<Profesor> profesores)
     {
+        int i;
+        for( i = 0 ; i < alumnos.size() ; i++ ) // RECORRE LA CANTIDAD DE alumnos
+        { 
+            if( (alumnos.get(i).credenciales.user.equals(UserField.getText())) && (alumnos.get(i).credenciales.password.equals(PasswordField.getText())))
+            { // LA CONDICION INDICA QUE SI EL USUARIO Y LA CONTRASEÑA SON IGUALES A LOS TEXTFIELD, RETORNARA VERDADERO
+                return true; 
+            }
+            else
+            {
+                return false; // SE RECORRIO EL ARRAY LIST Y RETORNO FALSO
+            }
+        }
         return true;
     }
 
