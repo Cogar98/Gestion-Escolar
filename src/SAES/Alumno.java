@@ -6,9 +6,8 @@ public class Alumno extends Persona {
     private String Id; // Id es PRIVADO
     // METODOS
     public String getId() {
-        String id;
-        id = this.Id;
-        return id;
+
+        return Id;
     }
 
     public void setId(String Id) {

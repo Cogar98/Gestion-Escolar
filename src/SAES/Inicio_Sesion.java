@@ -90,12 +90,21 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void B_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_IniciarActionPerformed
-        if(recorre_ArrayList(alumnos ,administradores,profesores))
+        boolean regresaPrivilegios = true; // SIRVE PARA DECIDIR SI recorre_ArrayList regresa privilegios administrativos o solamente para recorrer los ArrayList
+        
+        if(recorre_ArrayList(alumnos ,administradores,profesores, false))
         {
-          Menu_Administrador frame = new Menu_Administrador();
-          //JOptionPane.showMessageDialog(null,"INICIO DE SESION CORRECTO");
-          this.setVisible(false);
-          frame.setVisible(true);
+            boolean usuario_privilegios = recorre_ArrayList(alumnos,administradores,profesores,true); // CONCEDE TRUE/FALSE SEGUN EL ATRIBUTO Privilegios_Administrativos del usuario
+            if(usuario_privilegios == true)
+            {
+                Menu_Administrador Frame = new Menu_Administrador();
+                this.setVisible(false);
+                Frame.setVisible(true); // ABRE EL MENU ADMINISTRADOR
+            }
+            if(usuario_privilegios == false)
+            {
+                
+            }
         }
         else
         {
@@ -139,32 +148,48 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     }
     //METODOS
     public boolean recorre_ArrayList(ArrayList<Alumno> alumnos , ArrayList<Administrador> administradores,
-    ArrayList<Profesor> profesores)
+    ArrayList<Profesor> profesores, boolean regresaPrivilegios)
     {
         int i;
         for( i = 0 ; i < alumnos.size() ; i++ ) // RECORRE LA CANTIDAD DE alumnos
         { 
-            if( (alumnos.get(i).credenciales.user.equals(UserField.getText())) && (alumnos.get(i).credenciales.password.equals(PasswordField.getText())) && (alumnos.get(i).Privilegios_Administrativos == false))
+            if( (alumnos.get(i).credenciales.user.equals(UserField.getText())) && (alumnos.get(i).credenciales.password.equals(PasswordField.getText())) && (alumnos.get(i).Privilegios_Administrativos == false) && (regresaPrivilegios == false))
             { // LA CONDICION INDICA QUE SI EL USUARIO Y LA CONTRASEÑA SON IGUALES A LOS TEXTFIELD, RETORNARA VERDADERO
                 i = alumnos.size()-1; // CIERRA EL CICLO FOR
                 return true;
             }
+            // ESTE IF RETORNA EL VALOR DE LOS PRIVILEGIOS DEL USUARIO COMO BOOLEAN
+            if( (alumnos.get(i).credenciales.user.equals(UserField.getText())) && (alumnos.get(i).credenciales.password.equals(PasswordField.getText())) && (alumnos.get(i).Privilegios_Administrativos == false) && (regresaPrivilegios == true)) // regresaPrivilegios == true porque QUIERO QUE RETORNE LOS PRIVILEGIOS DEL USUARIO
+            { // LA CONDICION INDICA QUE SI EL USUARIO Y LA CONTRASEÑA SON IGUALES A LOS TEXTFIELD, RETORNARA VERDADERO
+                i = alumnos.size()-1; // CIERRA EL CICLO FOR
+                return alumnos.get(i).Privilegios_Administrativos;
+            }            
         }
         for( i = 0 ; i < profesores.size() ; i++)
         {
-            if( (profesores.get(i).credenciales.user.equals(UserField.getText())) && (profesores.get(i).credenciales.password.equals(PasswordField.getText())) && (profesores.get(i).Privilegios_Administrativos == false))
+            if( (profesores.get(i).credenciales.user.equals(UserField.getText())) && (profesores.get(i).credenciales.password.equals(PasswordField.getText())) && (profesores.get(i).Privilegios_Administrativos == false) && (regresaPrivilegios == false))
             { // LA CONDICION INDICA QUE SI EL USUARIO Y LA CONTRASEÑA SON IGUALES A LOS TEXTFIELD, RETORNARA VERDADERO
                 i = profesores.size()-1; // CIERRA EL CICLO FOR
                 return true;
-            }          
+            }
+            if( (profesores.get(i).credenciales.user.equals(UserField.getText())) && (profesores.get(i).credenciales.password.equals(PasswordField.getText())) && (profesores.get(i).Privilegios_Administrativos == false) && (regresaPrivilegios == true)) // regresaPrivilegios == true porque QUIERO QUE RETORNE LOS PRIVILEGIOS DEL USUARIO
+            { // LA CONDICION INDICA QUE SI EL USUARIO Y LA CONTRASEÑA SON IGUALES A LOS TEXTFIELD, RETORNARA VERDADERO
+                i = profesores.size()-1; // CIERRA EL CICLO FOR
+                return profesores.get(i).Privilegios_Administrativos;
+            }   
         }
         for( i = 0 ; i < administradores.size() ; i++)
         {
-            if( (administradores.get(i).credenciales.user.equals(UserField.getText())) && (administradores.get(i).credenciales.password.equals(PasswordField.getText())) && (administradores.get(i).Privilegios_Administrativos == true))
+            if( (administradores.get(i).credenciales.user.equals(UserField.getText())) && (administradores.get(i).credenciales.password.equals(PasswordField.getText())) && (administradores.get(i).Privilegios_Administrativos == true) && (regresaPrivilegios == false))
             { // LA CONDICION INDICA QUE SI EL USUARIO Y LA CONTRASEÑA SON IGUALES A LOS TEXTFIELD, RETORNARA VERDADERO
                 i = administradores.size()-1; // CIERRA EL CICLO FOR
                 return true;
-            }        
+            }
+            if( (administradores.get(i).credenciales.user.equals(UserField.getText())) && (administradores.get(i).credenciales.password.equals(PasswordField.getText())) && (administradores.get(i).Privilegios_Administrativos == true) && (regresaPrivilegios == true)) // regresaPrivilegios == true porque QUIERO QUE RETORNE LOS PRIVILEGIOS DEL USUARIO
+            { // LA CONDICION INDICA QUE SI EL USUARIO Y LA CONTRASEÑA SON IGUALES A LOS TEXTFIELD, RETORNARA VERDADERO
+                i = administradores.size()-1; // CIERRA EL CICLO FOR
+                return administradores.get(i).Privilegios_Administrativos;
+            }   
         }
         return false; // FALSE POR DEFAULT
     }

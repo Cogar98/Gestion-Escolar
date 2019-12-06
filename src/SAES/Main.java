@@ -26,12 +26,8 @@ public class Main {
         profesores.add(plantilla_profesor);
         
         // LAS VENTANAS EMPIEZAN AQUI
-        System.out.println("Bolean: " + administradores.get(0).Privilegios_Administrativos);
         Inicio_Sesion Frame = new Inicio_Sesion();
-        Frame.setVisible(true);
-           
-
-            
+        Frame.setVisible(true);  
     }
     
 }
