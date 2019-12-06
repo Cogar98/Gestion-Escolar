@@ -144,16 +144,29 @@ public class Inicio_Sesion extends javax.swing.JFrame {
         int i;
         for( i = 0 ; i < alumnos.size() ; i++ ) // RECORRE LA CANTIDAD DE alumnos
         { 
-            if( (alumnos.get(i).credenciales.user.equals(UserField.getText())) && (alumnos.get(i).credenciales.password.equals(PasswordField.getText())))
+            if( (alumnos.get(i).credenciales.user.equals(UserField.getText())) && (alumnos.get(i).credenciales.password.equals(PasswordField.getText())) && (alumnos.get(i).Privilegios_Administrativos == false))
             { // LA CONDICION INDICA QUE SI EL USUARIO Y LA CONTRASEÑA SON IGUALES A LOS TEXTFIELD, RETORNARA VERDADERO
-                return true; 
-            }
-            else
-            {
-                return false; // SE RECORRIO EL ARRAY LIST Y RETORNO FALSO
+                i = alumnos.size()-1; // CIERRA EL CICLO FOR
+                return true;
             }
         }
-        return true;
+        for( i = 0 ; i < profesores.size() ; i++)
+        {
+            if( (profesores.get(i).credenciales.user.equals(UserField.getText())) && (profesores.get(i).credenciales.password.equals(PasswordField.getText())) && (profesores.get(i).Privilegios_Administrativos == false))
+            { // LA CONDICION INDICA QUE SI EL USUARIO Y LA CONTRASEÑA SON IGUALES A LOS TEXTFIELD, RETORNARA VERDADERO
+                i = profesores.size()-1; // CIERRA EL CICLO FOR
+                return true;
+            }          
+        }
+        for( i = 0 ; i < administradores.size() ; i++)
+        {
+            if( (administradores.get(i).credenciales.user.equals(UserField.getText())) && (administradores.get(i).credenciales.password.equals(PasswordField.getText())) && (administradores.get(i).Privilegios_Administrativos == true))
+            { // LA CONDICION INDICA QUE SI EL USUARIO Y LA CONTRASEÑA SON IGUALES A LOS TEXTFIELD, RETORNARA VERDADERO
+                i = administradores.size()-1; // CIERRA EL CICLO FOR
+                return true;
+            }        
+        }
+        return false; // FALSE POR DEFAULT
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
