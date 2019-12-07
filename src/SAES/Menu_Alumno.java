@@ -54,7 +54,7 @@ public class Menu_Alumno extends javax.swing.JFrame {
     private void B_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_SalirActionPerformed
         Inicio_Sesion Frame = new Inicio_Sesion();
         this.setVisible(false);
-        this.setVisible(true);
+        Frame.setVisible(true);
     }//GEN-LAST:event_B_SalirActionPerformed
 
     /**

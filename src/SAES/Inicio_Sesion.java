@@ -92,18 +92,35 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     private void B_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_IniciarActionPerformed
         boolean regresaPrivilegios = true; // SIRVE PARA DECIDIR SI recorre_ArrayList regresa privilegios administrativos o solamente para recorrer los ArrayList
         
-        if(recorre_ArrayList(alumnos ,administradores,profesores, false))
+        if(recorre_ArrayList(alumnos ,administradores,profesores, false)) // DEBE SER TRUE PARA QUE SUCEDA
         {
-            boolean usuario_privilegios = recorre_ArrayList(alumnos,administradores,profesores,true); // CONCEDE TRUE/FALSE SEGUN EL ATRIBUTO Privilegios_Administrativos del usuario
-            if(usuario_privilegios == true)
+            // ATRIBUTOS
+            boolean privilegios_administrativos = recorre_ArrayList(alumnos,administradores,profesores,true); // CONCEDE TRUE/FALSE SEGUN EL ATRIBUTO Privilegios_Administrativos del usuario
+            // VALIDACION DE PRIVILEGIOS ADMINISTRATIVOS
+            if(privilegios_administrativos == true)
             {
-                Menu_Administrador Frame = new Menu_Administrador();
+                Menu_Administrador ventana_administrador = new Menu_Administrador();
                 this.setVisible(false);
-                Frame.setVisible(true); // ABRE EL MENU ADMINISTRADOR
+                ventana_administrador.setVisible(true); // ABRE EL MENU PARA ADMINISTRADORES
             }
-            if(usuario_privilegios == false)
-            {
-                
+            if(privilegios_administrativos == false)
+            { // EL USUARIO ES DE TIPO ALUMNO O PROFESOR POR LO TANTO ES NECESARIO VALIDAR QUE TIPO ES
+                switch("ES " + consigue_tipo_usuario())
+                { // ESTE SWITCH ABRE EL TIPO DE VENTANA PARA ALUMNO O PROFESORS
+                    case "ES ALUMNO":
+                        Menu_Alumno ventana_alumno = new Menu_Alumno();
+                        this.setVisible(false); // cierra el inicio de sesion
+                        ventana_alumno.setVisible(true); //  // ABRE VENTANA DE TIPO ALUMNO
+                        break;
+                    case "ES PROFESOR":
+                        Menu_Profesor ventana_profesor  = new Menu_Profesor();
+                        this.setVisible(false);
+                        ventana_profesor.setVisible(true);
+                        break;
+                    case "NINGUNO":
+                        JOptionPane.showMessageDialog(null,"FALLO ENCONTRAR EL TIPO DE USUARIO, COMUNIQUESE CON EL ADMINISTRADOR");
+                        break;
+                }
             }
         }
         else
@@ -151,7 +168,7 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     ArrayList<Profesor> profesores, boolean regresaPrivilegios)
     {
         int i;
-        for( i = 0 ; i < alumnos.size() ; i++ ) // RECORRE LA CANTIDAD DE alumnos
+        for( i = 0 ; i < alumnos.size() ; i++ ) // RECORRE LA CANTIDAD DE ALUMNOS
         { 
             if( (alumnos.get(i).credenciales.user.equals(UserField.getText())) && (alumnos.get(i).credenciales.password.equals(PasswordField.getText())) && (alumnos.get(i).Privilegios_Administrativos == false) && (regresaPrivilegios == false))
             { // LA CONDICION INDICA QUE SI EL USUARIO Y LA CONTRASEÑA SON IGUALES A LOS TEXTFIELD, RETORNARA VERDADERO
@@ -160,7 +177,7 @@ public class Inicio_Sesion extends javax.swing.JFrame {
             }
             // ESTE IF RETORNA EL VALOR DE LOS PRIVILEGIOS DEL USUARIO COMO BOOLEAN
             if( (alumnos.get(i).credenciales.user.equals(UserField.getText())) && (alumnos.get(i).credenciales.password.equals(PasswordField.getText())) && (alumnos.get(i).Privilegios_Administrativos == false) && (regresaPrivilegios == true)) // regresaPrivilegios == true porque QUIERO QUE RETORNE LOS PRIVILEGIOS DEL USUARIO
-            { // LA CONDICION INDICA QUE SI EL USUARIO Y LA CONTRASEÑA SON IGUALES A LOS TEXTFIELD, RETORNARA VERDADERO
+            { 
                 i = alumnos.size()-1; // CIERRA EL CICLO FOR
                 return alumnos.get(i).Privilegios_Administrativos;
             }            
@@ -191,8 +208,29 @@ public class Inicio_Sesion extends javax.swing.JFrame {
                 return administradores.get(i).Privilegios_Administrativos;
             }   
         }
-        return false; // FALSE POR DEFAULT
+        return false; // FALSE POR DEFAULT 
     }
+    public String consigue_tipo_usuario()
+    {
+        int i;
+        for( i = 0 ; i < alumnos.size() ; i++ )
+        {
+            if( (alumnos.get(i).credenciales.user.equals(UserField.getText())) && (alumnos.get(i).credenciales.password.equals(PasswordField.getText())) && (alumnos.get(i).Privilegios_Administrativos == false))
+            { // LA CONDICION INDICA QUE SI EL USUARIO Y LA CONTRASEÑA SON IGUALES A LOS TEXTFIELD, RETORNARA VERDADERO
+                String tipoUsuario = "ALUMNO";
+                i = alumnos.size()-1; // CIERRA EL CICLO FOR
+                return tipoUsuario; // REGRESA  LA PALABRA "ALUMNO" PARA EL SWITCH
+            }
+            if( (profesores.get(i).credenciales.user.equals(UserField.getText())) && (profesores.get(i).credenciales.password.equals(PasswordField.getText())) && (profesores.get(i).Privilegios_Administrativos == false)) // regresaPrivilegios == true porque QUIERO QUE RETORNE LOS PRIVILEGIOS DEL USUARIO
+            { // LA CONDICION INDICA QUE SI EL USUARIO Y LA CONTRASEÑA SON IGUALES A LOS TEXTFIELD, RETORNARA VERDADERO
+                String tipoUsuario = "PROFESOR";
+                i = profesores.size()-1; // CIERRA EL CICLO FOR
+                return tipoUsuario; // RETORNA LA PALABRA "PROFESOR" PARA EL SWITCH
+            } 
+        }
+        return "NINGUNO"; // RETURN POR DEFAULT YA QUE NO SE ENCONTRO EL TIPO DE USUARIO
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton B_Iniciar;

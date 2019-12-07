@@ -27,7 +27,7 @@ public class Main {
         
         // LAS VENTANAS EMPIEZAN AQUI
         Inicio_Sesion Frame = new Inicio_Sesion();
-        Frame.setVisible(true);  
+        Frame.setVisible(true);
     }
     
 }
