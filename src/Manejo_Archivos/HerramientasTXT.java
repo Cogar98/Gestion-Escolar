@@ -17,14 +17,14 @@ public class HerramientasTXT{
     }
     public static void verificaArchivos(String nombreArchivo)
     {
-        File archivo = new File("src/Files",nombreArchivo + ".txt");
+        File archivo = new File("src/Files",nombreArchivo + ".txt"); // añade extension .txt
         if(!archivo.exists()) // SI EL ARCHIVO NO EXISTE
         {
             crearArchivo(nombreArchivo); // ENTONCES CREARA EL ARCHIVO
         }
         else
         {
-            System.out.println("ARCHIVO INICIALIZADO");
+            System.out.println("ARCHIVO INICIALIZADO"); // SI EXISTE ENTONCES SOLO INDICARA QUE SE INICIALIZO
         }
     }
 }

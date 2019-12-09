@@ -42,6 +42,11 @@ public class Inicio_Sesion extends javax.swing.JFrame {
         });
 
         B_Salir.setText("SALIR");
+        B_Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                B_SalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,6 +142,10 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     private void B_IniciarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B_IniciarKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_B_IniciarKeyPressed
+
+    private void B_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_SalirActionPerformed
+    System.exit(0); // CIERRA EL PROGRAMA
+    }//GEN-LAST:event_B_SalirActionPerformed
 
     /**
      * @param args the command line arguments

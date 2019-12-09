@@ -17,18 +17,18 @@ public class Main {
         Profesor plantilla_profesor = new Profesor();
             // VARIABLES
         int i;
-        // DECLARACION DE USUARIOS PREDETERMINADOS
+            // DECLARACION DE USUARIOS PREDETERMINADOS
         plantilla_alumno.create("1", "Mike", "Gutierrez", "Villalpando", 19, false, "mike99", "password");
         alumnos.add(plantilla_alumno);
         plantilla_administrador.create("1", "Roberto", "Cordova", "Galvan", 21,true, "cogar98", "password");
         administradores.add(plantilla_administrador);
         plantilla_profesor.create("1", "Ernesto", "Filio", "Lopez", 70 , false ,"Filio", "password");
         profesores.add(plantilla_profesor);
-        // ARCHIVOS TXT
+            // ARCHIVOS TXT
         verificaArchivos("Alumnos"); //CREA Alumnos + .txt
         verificaArchivos("Profesores");
         verificaArchivos("Administradores");
-        // LAS VENTANAS EMPIEZAN AQUI
+            // LAS VENTANAS EMPIEZAN AQUI
         Inicio_Sesion Frame = new Inicio_Sesion();
         Frame.setVisible(true);
     }
