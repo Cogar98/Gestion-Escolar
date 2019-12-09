@@ -35,6 +35,11 @@ public class Inicio_Sesion extends javax.swing.JFrame {
                 B_IniciarActionPerformed(evt);
             }
         });
+        B_Iniciar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                B_IniciarKeyPressed(evt);
+            }
+        });
 
         B_Salir.setText("SALIR");
 
@@ -90,7 +95,7 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void B_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_IniciarActionPerformed
-        boolean regresaPrivilegios = true; // SIRVE PARA DECIDIR SI recorre_ArrayList regresa privilegios administrativos o solamente para recorrer los ArrayList
+        //boolean regresaPrivilegios = true; // SIRVE PARA DECIDIR SI recorre_ArrayList regresa privilegios administrativos o solamente para recorrer los ArrayList
         
         if(recorre_ArrayList(alumnos ,administradores,profesores, false)) // DEBE SER TRUE PARA QUE SUCEDA
         {
@@ -129,6 +134,10 @@ public class Inicio_Sesion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_B_IniciarActionPerformed
 
+    private void B_IniciarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B_IniciarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_B_IniciarKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -164,6 +173,10 @@ public class Inicio_Sesion extends javax.swing.JFrame {
         });
     }
     //METODOS
+    public void iniciar_sesion()
+    {
+        
+    }
     public boolean recorre_ArrayList(ArrayList<Alumno> alumnos , ArrayList<Administrador> administradores,
     ArrayList<Profesor> profesores, boolean regresaPrivilegios)
     {
