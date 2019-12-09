@@ -25,9 +25,9 @@ public class Main {
         plantilla_profesor.create("1", "Ernesto", "Filio", "Lopez", 70 , false ,"Filio", "password");
         profesores.add(plantilla_profesor);
         // ARCHIVOS TXT
-        crearArchivo("Alumnos"); //CREA Alumnos + .txt
-        crearArchivo("Profesores");
-        crearArchivo("Administradores");
+        verificaArchivos("Alumnos"); //CREA Alumnos + .txt
+        verificaArchivos("Profesores");
+        verificaArchivos("Administradores");
         // LAS VENTANAS EMPIEZAN AQUI
         Inicio_Sesion Frame = new Inicio_Sesion();
         Frame.setVisible(true);

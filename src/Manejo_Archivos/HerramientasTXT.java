@@ -15,4 +15,16 @@ public class HerramientasTXT{
             ex.printStackTrace(System.out); // CUALQUIER ERROR LO MANDA EN SALIDA STANDARD
         }    
     }
+    public static void verificaArchivos(String nombreArchivo)
+    {
+        File archivo = new File("src/Files",nombreArchivo + ".txt");
+        if(!archivo.exists()) // SI EL ARCHIVO NO EXISTE
+        {
+            crearArchivo(nombreArchivo); // ENTONCES CREARA EL ARCHIVO
+        }
+        else
+        {
+            System.out.println("ARCHIVO INICIALIZADO");
+        }
+    }
 }
