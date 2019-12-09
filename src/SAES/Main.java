@@ -1,15 +1,15 @@
 
 package SAES;
-
+import static Manejo_Archivos.HerramientasTXT.*; // IMPORTA METODOS PARA ARCHIVOS DE TEXTO
 import java.util.ArrayList;
 
-public class Main {
+public class Main { 
         //ArrayList
     public static ArrayList<Alumno> alumnos = new ArrayList<>();
     public static ArrayList<Administrador> administradores = new ArrayList<>();
     public static ArrayList<Profesor> profesores = new ArrayList<>();
     
-    public static void main(String[] args) {
+    public static void main(String[] args) {      
         //ATRIBUTOS 
             //Objetos
         Alumno plantilla_alumno = new Alumno();
@@ -24,7 +24,10 @@ public class Main {
         administradores.add(plantilla_administrador);
         plantilla_profesor.create("1", "Ernesto", "Filio", "Lopez", 70 , false ,"Filio", "password");
         profesores.add(plantilla_profesor);
-        
+        // ARCHIVOS TXT
+        crearArchivo("Alumnos"); //CREA Alumnos + .txt
+        crearArchivo("Profesores");
+        crearArchivo("Administradores");
         // LAS VENTANAS EMPIEZAN AQUI
         Inicio_Sesion Frame = new Inicio_Sesion();
         Frame.setVisible(true);
