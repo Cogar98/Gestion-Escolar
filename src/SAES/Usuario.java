@@ -3,8 +3,8 @@ package SAES;
 
 public class Usuario {
     // ATRIBUTOS
-    String user;
-    String password;
+    public String user;
+    public String password;
     // METODOS
     public void createUsuario(String user, String password) // CONSTRUCTOR
     {

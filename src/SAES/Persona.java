@@ -3,14 +3,14 @@ package SAES;
 
 public abstract class Persona {
     //Atributos
-    String Id;
-    String nombre;
-    String a_paterno;
-    String a_materno;
-    int edad;
-    boolean Privilegios_Administrativos;
+    private String Id;
+    public String nombre;
+    public String a_paterno;
+    public String a_materno;
+    public int edad;
+    public boolean Privilegios_Administrativos;
     // OBJETOS
-    Usuario credenciales = new Usuario();  
+    public Usuario credenciales = new Usuario();  
     // METODOS
     public void create(String Id, String nombre, String a_paterno, String a_materno, int edad, boolean Privilegios_Administrativos
     ,String user, String password)
