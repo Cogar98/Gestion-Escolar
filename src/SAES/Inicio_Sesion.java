@@ -1,7 +1,7 @@
 
 package SAES;
 import java.util.ArrayList;
-import static SAES.Main.*; // IMPORTA TODOS LOS ARRAYLIST DE MAIN
+import static SAES.ArrayLists.*; // IMPORTA TODOS LOS ARRAYLIST DE MAIN
 import javax.swing.JOptionPane;
 
 public class Inicio_Sesion extends javax.swing.JFrame {
@@ -100,7 +100,7 @@ public class Inicio_Sesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void B_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_IniciarActionPerformed
-        //boolean regresaPrivilegios = true; // SIRVE PARA DECIDIR SI recorre_ArrayList regresa privilegios administrativos o solamente para recorrer los ArrayList
+        //boolean regresaPrivilegios = true; // SIRVE PARA DECIDIR SI recorre_ArrayList regresa privilegios administrativos o solamente para recorrer los ArrayLists
         
         if(recorre_ArrayList(alumnos ,administradores,profesores, false)) // DEBE SER TRUE PARA QUE SUCEDA
         {

@@ -1,14 +1,9 @@
 
 package SAES;
 import static Manejo_Archivos.HerramientasTXT.*; // IMPORTA METODOS PARA ARCHIVOS DE TEXTO
-import java.util.ArrayList;
+import static SAES.ArrayLists.*;
 
 public class Main { 
-        //ArrayList
-    public static ArrayList<Alumno> alumnos = new ArrayList<>();
-    public static ArrayList<Administrador> administradores = new ArrayList<>();
-    public static ArrayList<Profesor> profesores = new ArrayList<>();
-    
     public static void main(String[] args) {      
         //ATRIBUTOS 
             //Objetos
@@ -28,6 +23,7 @@ public class Main {
         verificaArchivos("Alumnos"); //CREA Alumnos + .txt
         verificaArchivos("Profesores");
         verificaArchivos("Administradores");
+        iniciaAlumnosTXT(alumnos);
             // LAS VENTANAS EMPIEZAN AQUI
         Inicio_Sesion Frame = new Inicio_Sesion();
         Frame.setVisible(true);

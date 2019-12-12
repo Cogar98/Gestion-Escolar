@@ -2,8 +2,7 @@
 package SAES;
 
 public abstract class Persona {
-    //Atributos
-    private String Id;
+    protected String Id; // PROTECTED PORQUE HEREDA
     public String nombre;
     public String a_paterno;
     public String a_materno;
@@ -22,5 +21,14 @@ public abstract class Persona {
         this.edad = edad;
         this.Privilegios_Administrativos = Privilegios_Administrativos;
         this.credenciales.createUsuario(user, password);
+    }
+    
+    public String getId() {
+        return Id;
+    }
+
+    //Atributos
+    public void setId(String Id) {
+        this.Id = Id;
     }
 }
