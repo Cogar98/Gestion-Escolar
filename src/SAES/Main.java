@@ -1,7 +1,10 @@
 
 package SAES;
-import static Manejo_Archivos.HerramientasTXT.*; // IMPORTA METODOS PARA ARCHIVOS DE TEXTO
-import static SAES.ArrayLists.*;
+import Clases.Administrador;
+import Clases.Alumno;
+import Clases.Profesor;
+import static Funciones_con_archivos.Manejo_ArchivosTXT.*; // IMPORTA METODOS PARA ARCHIVOS DE TEXTO
+import static Clases.ArrayLists.*;
 
 public class Main { 
     public static void main(String[] args) {      

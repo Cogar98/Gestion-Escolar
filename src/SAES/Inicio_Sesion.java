@@ -1,7 +1,10 @@
 
 package SAES;
+import Clases.Administrador;
+import Clases.Alumno;
+import Clases.Profesor;
 import java.util.ArrayList;
-import static SAES.ArrayLists.*; // IMPORTA TODOS LOS ARRAYLIST DE MAIN
+import static Clases.ArrayLists.*; // IMPORTA TODOS LOS ARRAYLIST DE MAIN
 import javax.swing.JOptionPane;
 
 public class Inicio_Sesion extends javax.swing.JFrame {

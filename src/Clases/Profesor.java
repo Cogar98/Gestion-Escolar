@@ -1,7 +1,7 @@
 
-package SAES;
+package Clases;
 
-public class Alumno extends Persona {
+public class Profesor extends Persona {
     // ATRIBUTOS
     public boolean Privilegios_Administrativos = false;
     // METODOS

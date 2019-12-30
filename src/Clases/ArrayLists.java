@@ -1,5 +1,5 @@
 
-package SAES;
+package Clases;
 import java.util.ArrayList;
 public class ArrayLists {
     // CONTIENE LOS ARRAYLIST ESTATICOS

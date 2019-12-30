@@ -1,5 +1,5 @@
 
-package SAES;
+package Clases;
 
 public class Usuario {
     // ATRIBUTOS

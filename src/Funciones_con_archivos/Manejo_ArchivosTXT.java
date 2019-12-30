@@ -1,12 +1,13 @@
 
-package Manejo_Archivos;
+package Funciones_con_archivos;
+import Clases.Alumno;
 import java.io.*; // Input / Output para FILE
 import  java.util.ArrayList; // 
 import SAES.*; // IMPORTA TODAS LAS CLASES Y FRAMES DE SAES
 import javax.swing.JOptionPane;
 
 
-public class HerramientasTXT{
+public class Manejo_ArchivosTXT{
     // FILES
     public static File AlumnosTXT = new File("src/Files","Alumnos.txt");
     public static File ProfesoresTXT = new File("src/Files","Profesores.txt");
@@ -37,7 +38,7 @@ public class HerramientasTXT{
             System.out.println("ARCHIVO INICIALIZADO"); // SI EXISTE ENTONCES SOLO INDICARA QUE SE INICIALIZÓ
         }
     }
-    
+    // ESTE METODO GUARDARÁ LOS DATOS DEL ARRAYLIST EN EL ARCHIVO TXT
    public static void iniciaAlumnosTXT(ArrayList<Alumno> alumnos)// Recibe un ArrayLis<Alumno>
     {
         int i;
@@ -47,7 +48,7 @@ public class HerramientasTXT{
            if( 0 < alumnos.size()) // SI EL ARRAYLIST CONTIENE ELEMENTOS
            {
                for( i = 0 ; i < alumnos.size() ; i++ ) // RECORRE EL ARREGLO
-               {
+               { //ESCRIBE EN UNA LINEA TODA LOS ATRIBUTOS DE LA CLASE ALUMNO SEPARADO POR COMAS
                    escribir.println(alumnos.get(i).getId() + " , " + alumnos.get(i).nombre + " , " + alumnos.get(i).a_paterno
                    + " , " + alumnos.get(i).a_materno + " , " + alumnos.get(i).edad + " , " + (alumnos.get(i).Privilegios_Administrativos ? 1 : 0)
                    + " , " + alumnos.get(i).credenciales.user + " , " + alumnos.get(i).credenciales.password); // (alumnos.get(i).Privilegios_Administrativos ? 1 : 0) regresa 1 o 0 si es true or false
@@ -64,4 +65,9 @@ public class HerramientasTXT{
             ex.printStackTrace(System.out); //IMPRIME UN ERROR
         }  
     }
+   // ESTE METODO REGRESARA LO GUARDADO EN EL TXT AL ARRAYLIST
+   public static void regresaTXTalArrayAlumnos()
+   {
+
+   }
 }
