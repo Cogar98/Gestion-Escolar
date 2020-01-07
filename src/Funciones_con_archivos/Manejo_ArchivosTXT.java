@@ -1,72 +1,155 @@
 
 package Funciones_con_archivos;
-import Clases.Alumno;
+import Clases.*; // Importa todas las clases
+import static Clases.ArrayLists.*;
 import java.io.*; // Input / Output para FILE
-import  java.util.ArrayList; // 
+import  java.util.ArrayList; 
 import javax.swing.JOptionPane;
 
 
 public class Manejo_ArchivosTXT{
     // FILES
-    public static File AlumnosTXT = new File("src/Files","Alumnos.txt");
+    public File archivo = new File("src/Files" ,"");
+    /*public static File AlumnosTXT = new File("src/Files","Alumnos.txt");
     public static File ProfesoresTXT = new File("src/Files","Profesores.txt");
-    public static File AdministradoresTXT = new File("src/Files","Administradores.txt");
+    public static File AdministradoresTXT = new File("src/Files","Administradores.txt");*/
     //METODOS
-    public static void crearArchivo(String nombreArchivo)
-    {   
-        File archivo = new File("src/Files",nombreArchivo +".txt");
-        try {   // FILE(RUTA, NOMBREARCHIVO) -> CREA EL ARCHIVO
-            
-            PrintWriter salida = new PrintWriter(archivo); // INICIA EL FLUJO DEL ARCHIVO
-            salida.close(); // CIERRA EL FLUJO DEL ARCHIVO
-            System.out.println("EL Archivo " + nombreArchivo + " se ha creado correctamente");
-        } catch (FileNotFoundException ex) { // SI NO ENCUENTRA EL ARCHIVO
-            ex.printStackTrace(System.out); // CUALQUIER ERROR LO MANDA EN SALIDA STANDARD
-        }    
+    public static boolean verificaArchivo(String nombreArchivo)
+    {
+        File archivo = new File("src/Files", nombreArchivo + ".txt");        
+        if(archivo.exists())
+            return true; // regresa el archivo si existe
+        else
+            return false; // regresa falso
     }
     
-    public static void verificaArchivos(String nombreArchivo)
+    public static void crearArchivo(String nombreArchivo)
     {
-        File archivo = new File("src/Files",nombreArchivo + ".txt"); // añade extension .txt
-        if(!archivo.exists()) // SI EL ARCHIVO NO EXISTE
+        if(!verificaArchivo(nombreArchivo)) // el archivo NO EXISTE
         {
-            crearArchivo(nombreArchivo); // ENTONCES CREARA EL ARCHIVO
+            File archivo = new File("src/Files" , nombreArchivo + ".txt");
+            Archivos.add(archivo); // SE REGISTRA EN EL ARRAYLIST<FILE> Archivos
+            try
+            {
+                PrintWriter escritura = new PrintWriter(archivo);
+                escritura.close();
+                System.out.println("EL ARCHIVO " + archivo + ".txt se ha creado correctamente" );
+            }
+            catch(FileNotFoundException ex)
+            {
+                ex.printStackTrace(System.out);
+            }
         }
-        else
+        else // El archivo EXISTE
         {
-            System.out.println("ARCHIVO INICIALIZADO"); // SI EXISTE ENTONCES SOLO INDICARA QUE SE INICIALIZÓ
+            File archivo = new File("src/Files" , nombreArchivo + ".txt"); //  AUNQUE YA EXISTA EL 
+            Archivos.add(archivo); //   ARCHIVO AUN ASI SE REGISTRA EN EL ARRAYLIST<FILE> Archivos
         }
     }
-    // ESTE METODO GUARDARÁ LOS DATOS DEL ARRAYLIST EN EL ARCHIVO TXT
-   public static void iniciaAlumnosTXT(ArrayList<Alumno> alumnos)// Recibe un ArrayLis<Alumno>
+    
+    public static void iniciarArchivo(String nombreArchivo)
     {
-        int i;
+        File archivo = new File("src/Files", nombreArchivo + ".txt");      
+        crearArchivo(nombreArchivo);
+        do
+        {
+            if(verificaArchivo(nombreArchivo)) // Si el archivo existe
+            {
+                switch(nombreArchivo)
+                {
+                    case "Alumnos":
+                        escribeAlumnos(alumnos);
+                        break;
+                    case "Profesores":
+                        escribeProfesores(profesores);
+                        break;
+                    case "Administradores":
+                        escribeAdministradores(administradores);
+                        break;    
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                crearArchivo(nombreArchivo); // Si no existe lo creara y dara otra vuelta  hasta entrar en el if
+            }
+        }while(!archivo.exists()); // SE REPETIRA HASTA QUE EL ARCHIVO EXISTA
+    }
+    
+    public static void escribeAlumnos(ArrayList<Alumno> Alumnos)
+    {
         try
         {
-           PrintWriter escribir = new PrintWriter(AlumnosTXT); // LISTO PARA ESCRIBIR ARCHIVO
-           if( 0 < alumnos.size()) // SI EL ARRAYLIST CONTIENE ELEMENTOS
-           {
-               for( i = 0 ; i < alumnos.size() ; i++ ) // RECORRE EL ARREGLO
-               { //ESCRIBE EN UNA LINEA TODA LOS ATRIBUTOS DE LA CLASE ALUMNO SEPARADO POR COMAS
-                   escribir.println(alumnos.get(i).getId() + " , " + alumnos.get(i).nombre + " , " + alumnos.get(i).a_paterno
-                   + " , " + alumnos.get(i).a_materno + " , " + alumnos.get(i).edad + " , " + (alumnos.get(i).Privilegios_Administrativos ? 1 : 0)
-                   + " , " + alumnos.get(i).credenciales.user + " , " + alumnos.get(i).credenciales.password); // (alumnos.get(i).Privilegios_Administrativos ? 1 : 0) regresa 1 o 0 si es true or false
-               }
-           }
-           else // NO CONTIENE NINGUN ELEMENTO
-           {
-               JOptionPane.showMessageDialog(null,"NO SE PUDO GUARDAR INFORMACION EN EL ARCHIVO ALUMNOS");
-           }
-           escribir.close();
+            PrintWriter escritura = new PrintWriter(Archivos.get(1));
+            for(int i = 0 ; i < Alumnos.size() ; i++)
+            {
+                escritura.print(Alumnos.get(i).getId() + " , ");
+                escritura.print(Alumnos.get(i).nombre + " , ");
+                escritura.print(Alumnos.get(i).a_paterno + " , ");
+                escritura.print(Alumnos.get(i).a_materno + " , ");
+                escritura.print(Alumnos.get(i).edad + " , ");
+                escritura.print(Alumnos.get(i).credenciales.user + " , ");
+                escritura.print(Alumnos.get(i).credenciales.password + " , ");
+                escritura.print(Alumnos.get(i).Privilegios_Administrativos + "\n");
+            }
+            escritura.close();
+            System.out.println("El ARCHIVO " + Archivos.get(1) + " SE HA INICIADO CORRECTAMENTE");
         }
         catch(FileNotFoundException ex)
         {
-            ex.printStackTrace(System.out); //IMPRIME UN ERROR
-        }  
+            ex.printStackTrace(System.out);
+        }
     }
-   // ESTE METODO REGRESARA LO GUARDADO EN EL TXT AL ARRAYLIST
-   public static void regresaTXTalArrayAlumnos()
-   {
-
-   }
+    
+    public static void escribeAdministradores(ArrayList<Administrador> Administradores)
+    {
+        try
+        {
+            PrintWriter escritura = new PrintWriter(Archivos.get(0));
+            for(int i = 0 ; i < Administradores.size() ; i++)
+            {
+                escritura.print(Administradores.get(i).getId() + " , ");
+                escritura.print(Administradores.get(i).nombre + " , ");
+                escritura.print(Administradores.get(i).a_paterno + " , ");
+                escritura.print(Administradores.get(i).a_materno + " , ");
+                escritura.print(Administradores.get(i).edad + " , ");
+                escritura.print(Administradores.get(i).credenciales.user + " , ");
+                escritura.print(Administradores.get(i).credenciales.password + " , ");
+                escritura.print(Administradores.get(i).Privilegios_Administrativos + "\n");
+            }
+            escritura.close();
+            System.out.println("El ARCHIVO " + Archivos.get(0) + " SE HA INICIADO CORRECTAMENTE");
+        }
+        catch(FileNotFoundException ex)
+        {
+            ex.printStackTrace(System.out);
+        }      
+    }
+    
+    public static void escribeProfesores(ArrayList<Profesor> Profesores)
+    {
+        try
+        {
+            PrintWriter escritura = new PrintWriter(Archivos.get(2)); // REVISA EL FILE 2 = PROFESORES
+            for(int i = 0 ; i < Profesores.size() ; i++)
+            {
+                escritura.print(Profesores.get(i).getId() + " , ");
+                escritura.print(Profesores.get(i).nombre + " , ");
+                escritura.print(Profesores.get(i).a_paterno + " , ");
+                escritura.print(Profesores.get(i).a_materno + " , ");
+                escritura.print(Profesores.get(i).edad + " , ");
+                escritura.print(Profesores.get(i).credenciales.user + " , ");
+                escritura.print(Profesores.get(i).credenciales.password + " , ");
+                escritura.print(Profesores.get(i).Privilegios_Administrativos + "\n");
+            }
+            escritura.close();
+            System.out.println("El ARCHIVO " + Archivos.get(1) + " SE HA INICIADO CORRECTAMENTE");
+        }
+        catch(FileNotFoundException ex)
+        {
+            ex.printStackTrace(System.out);
+        }           
+    }
+    
 }
