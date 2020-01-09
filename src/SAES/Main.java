@@ -16,19 +16,26 @@ public class Main {
             // VARIABLES
         int i;
             // DECLARACION DE USUARIOS PREDETERMINADOS
-        plantilla_alumno.create("1", "Mike", "Gutierrez", "Villalpando", 19, false, "mike99", "password");
+        plantilla_alumno.create("1", "Mike", "Gutierrez", "Villalpando", 19, "mike99", "password",false);
         alumnos.add(plantilla_alumno);
-        plantilla_administrador.create("1", "Roberto", "Cordova", "Galvan", 21,true, "cogar98", "password");
+        plantilla_administrador.create("1", "Roberto", "Cordova", "Galvan", 21,"cogar98", "password", true);
         administradores.add(plantilla_administrador);
-        plantilla_profesor.create("1", "Ernesto", "Filio", "Lopez", 70 , false ,"Filio", "password");
+        plantilla_profesor.create("1", "Ernesto", "Filio", "Lopez", 70 , "Filio", "password",false);
         profesores.add(plantilla_profesor);
             // ARCHIVOS TXT
         iniciarArchivo("Administradores");
         iniciarArchivo("Alumnos");       
         iniciarArchivo("Profesores");
-            // LAS VENTANAS EMPIEZAN AQUI
+        regresaInfoTXT(Archivos.get(0)); // recupera toda la info del archivo Administradores en ArrayLists
+       /* for(i = 0 ; i < administradores.size() ; i++)
+        System.out.println(administradores.get(i).getId() + administradores.get(i).nombre + " " + administradores.get(i).a_paterno + administradores.get(i).a_materno
+        + administradores.get(i).edad + administradores.get(i).credenciales.user + administradores.get(i).credenciales.password +
+        administradores.get(i).Privilegios_Administrativos);*/
+        System.out.println(administradores.size());
+        // LAS VENTANAS EMPIEZAN AQUI
         Inicio_Sesion Frame = new Inicio_Sesion();
         Frame.setVisible(true);
+        
     }
     
 }

@@ -11,8 +11,8 @@ public abstract class Persona {
     // OBJETOS
     public Usuario credenciales = new Usuario();  
     // METODOS
-    public void create(String Id, String nombre, String a_paterno, String a_materno, int edad, boolean Privilegios_Administrativos
-    ,String user, String password)
+    public void create(String Id, String nombre, String a_paterno, String a_materno, int edad,
+    String user, String password, boolean Privilegios_Administrativos)
     {
         this.Id = Id;
         this.nombre = nombre;

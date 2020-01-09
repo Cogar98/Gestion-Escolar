@@ -5,6 +5,10 @@ import Clases.Alumno;
 import Clases.Profesor;
 import java.util.ArrayList;
 import static Clases.ArrayLists.*; // IMPORTA TODOS LOS ARRAYLIST DE MAIN
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 public class Inicio_Sesion extends javax.swing.JFrame {
@@ -104,7 +108,14 @@ public class Inicio_Sesion extends javax.swing.JFrame {
 
     private void B_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_IniciarActionPerformed
         //boolean regresaPrivilegios = true; // SIRVE PARA DECIDIR SI recorre_ArrayList regresa privilegios administrativos o solamente para recorrer los ArrayLists
-        
+        /*
+        if(verificaCredenciales == true)
+        {
+            set visible menu
+        }
+        else
+        {
+        }*/
         if(recorre_ArrayList(alumnos ,administradores,profesores, false)) // DEBE SER TRUE PARA QUE SUCEDA
         {
             // ATRIBUTOS
@@ -139,7 +150,7 @@ public class Inicio_Sesion extends javax.swing.JFrame {
         else
         {
            JOptionPane.showMessageDialog(null,"DATOS INCORRECTOS PORFAVOR VUELVE A INTENTARLO");
-        }
+        }//*/
     }//GEN-LAST:event_B_IniciarActionPerformed
 
     private void B_IniciarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B_IniciarKeyPressed
@@ -185,10 +196,58 @@ public class Inicio_Sesion extends javax.swing.JFrame {
         });
     }
     //METODOS
-    public void iniciar_sesion()
+    /*public void recorreAlumnos()
+    {}
+    public static void verificaCredenciales(String nombreArchivo) throws FileNotFoundException
     {
+        switch(nombreArchivo)
+        {
+            case "Alumnos":
+                try
+                {
+                BufferedReader lecturaArchivo = new BufferedReader(new FileReader(Archivos.get(0)));
+                String lectura = lecturaArchivo.readLine();
+                do
+                {
+                    System.out.println("hola");
+                }while( (lectura != ",") && (lectura != null));
+                lecturaArchivo.close();
+                }
+                catch(FileNotFoundException ex)
+                {
+                    ex.printStackTrace(System.out); // Exception de Archivo de texto
+                }
+                catch(IOException ex)
+                {
+                    ex.printStackTrace(System.out); // Exception de readLine
+                }
+                break;
+            case "Administradores":
+                break;
+            case "Profesores":
+                break;
+        }
+        for()
+        {
+            if(usuario , contrasenia)
+            {
+                se pudo
+            }
+            else
+            {
+                no se pudo
+            }
+        }
         
-    }
+        for()
+        {
+        }
+        
+        for()
+        {
+        }
+        
+    }*/
     public boolean recorre_ArrayList(ArrayList<Alumno> alumnos , ArrayList<Administrador> administradores,
     ArrayList<Profesor> profesores, boolean regresaPrivilegios)
     {
@@ -197,7 +256,6 @@ public class Inicio_Sesion extends javax.swing.JFrame {
         { 
             if( (alumnos.get(i).credenciales.user.equals(UserField.getText())) && (alumnos.get(i).credenciales.password.equals(PasswordField.getText())) && (alumnos.get(i).Privilegios_Administrativos == false) && (regresaPrivilegios == false))
             { // LA CONDICION INDICA QUE SI EL USUARIO Y LA CONTRASEÑA SON IGUALES A LOS TEXTFIELD, RETORNARA VERDADERO
-                i = alumnos.size()-1; // CIERRA EL CICLO FOR
                 return true;
             }
             // ESTE IF RETORNA EL VALOR DE LOS PRIVILEGIOS DEL USUARIO COMO BOOLEAN
@@ -255,7 +313,7 @@ public class Inicio_Sesion extends javax.swing.JFrame {
         }
         return "NINGUNO"; // RETURN POR DEFAULT YA QUE NO SE ENCONTRO EL TIPO DE USUARIO
     }
-
+ //*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton B_Iniciar;
