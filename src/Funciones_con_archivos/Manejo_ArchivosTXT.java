@@ -8,13 +8,14 @@ import  java.util.ArrayList;
 
 
 public class Manejo_ArchivosTXT{
-    // FILES
-    public File archivo = new File("src/Files" ,"");
-    /*public static File AlumnosTXT = new File("src/Files","Alumnos.txt");
-    public static File ProfesoresTXT = new File("src/Files","Profesores.txt");
-    public static File AdministradoresTXT = new File("src/Files","Administradores.txt");*/
     //METODOS
-    public static boolean verificaArchivo(String nombreArchivo)
+    public static void FilesPredeterminados()
+    {
+        Archivos.add(new File("src/Files","Administradores.txt"));
+        Archivos.add(new File("src/Files","Alumnos.txt"));
+        Archivos.add(new File("src/Files","Profesores.txt"));
+    }
+    public static boolean verificaTXT(String nombreArchivo)
     {
         File archivo = new File("src/Files", nombreArchivo + ".txt");        
         if(archivo.exists())
@@ -23,12 +24,11 @@ public class Manejo_ArchivosTXT{
             return false; // regresa falso
     }
     
-    public static void crearArchivo(String nombreArchivo)
+    public static void creaTXT(String nombreArchivo)
     {
-        if(!verificaArchivo(nombreArchivo)) // el archivo NO EXISTE
+        if(!verificaTXT(nombreArchivo)) // el TXT NO EXISTE en el HD / SD
         {
             File archivo = new File("src/Files" , nombreArchivo + ".txt");
-            Archivos.add(archivo); // SE REGISTRA EN EL ARRAYLIST<FILE> Archivos
             try
             {
                 PrintWriter escritura = new PrintWriter(archivo);
@@ -40,39 +40,39 @@ public class Manejo_ArchivosTXT{
                 ex.printStackTrace(System.out);
             }
         }
-        else // El archivo EXISTE
+        /*else // El archivo TXT EXISTE EN HD / SD
         {
             File archivo = new File("src/Files" , nombreArchivo + ".txt"); //  AUNQUE YA EXISTA EL 
             Archivos.add(archivo); //   ARCHIVO AUN ASI SE REGISTRA EN EL ARRAYLIST<FILE> Archivos
-        }
+        }*/
     }
     
-    public static void iniciarArchivo(String nombreArchivo)
+    public static void iniciaDatosATXT(File archivo)
     {
-        File archivo = new File("src/Files", nombreArchivo + ".txt");      
-        crearArchivo(nombreArchivo);
+        boolean controlDeEscritura = false; // esta variable controlara el while para que ejecute "escribe..." forzosamente aun si no existe el TXT
         do
         {
-            if(verificaArchivo(nombreArchivo)) // Si el archivo existe
+            if(verificaTXT(regresaNombreSinTXT(archivo.getName()))) // Si el archivo TXT existe
             {
-                switch(nombreArchivo)
+                switch(regresaNombreSinTXT(archivo.getName()))
                 {
                     case "Administradores":
                         escribeAdministradores(administradores);
+                        controlDeEscritura = true;
                         break;                     
                     case "Alumnos":
                         escribeAlumnos(alumnos);
+                        controlDeEscritura = true;
                         break;
                     case "Profesores":
                         escribeProfesores(profesores);
+                        controlDeEscritura = true;
                         break;   
                 }
             }
             else
-            {
-                crearArchivo(nombreArchivo); // Si no existe lo creara y dara otra vuelta  hasta entrar en el if
-            }
-        }while(!archivo.exists()); // SE REPETIRA HASTA QUE EL ARCHIVO EXISTA
+                creaTXT(regresaNombreSinTXT(archivo.getName())); // Si no existe lo creara y dara otra vuelta  hasta entrar en el if
+        }while(controlDeEscritura == false); // SE REPETIRA HASTA QUE EL ARCHIVO TXT SE ESCRIBA
     }
         
     public static void escribeAdministradores(ArrayList<Administrador> Administradores)
@@ -117,7 +117,7 @@ public class Manejo_ArchivosTXT{
                 escritura.print(Alumnos.get(i).Privilegios_Administrativos + "\n");
             }
             escritura.close();
-            System.out.println("El ARCHIVO " + Archivos.get(1) + " SE HA INICIADO CORRECTAMENTE");
+            System.out.println("ARCHIVO " + Archivos.get(1) + " INICIADO CORRECTAMENTE");
         }
         catch(FileNotFoundException ex)
         {
@@ -142,7 +142,7 @@ public class Manejo_ArchivosTXT{
                 escritura.print(Profesores.get(i).Privilegios_Administrativos + "\n");
             }
             escritura.close();
-            System.out.println("El ARCHIVO " + Archivos.get(1) + " SE HA INICIADO CORRECTAMENTE");
+            System.out.println("ARCHIVO " + Archivos.get(1) + " INICIADO CORRECTAMENTE");
         }
         catch(FileNotFoundException ex)
         {
@@ -150,17 +150,19 @@ public class Manejo_ArchivosTXT{
         }           
     }
     
-    public static void regresaInfoTXT(File archivo)
-    {
-        int i = 0, c; // para los ciclos // c para cast
+    public static void IniciaTXT(String nombreArchivo)
+    {   
+        if(Archivos.size() == 0)
+            FilesPredeterminados(); // crea los Administradores.txt Alumnos.txt Profesores.txt
         try
         {
-            BufferedReader entrada = new BufferedReader(new FileReader(archivo)); // crea un flojo de entrada
+            BufferedReader entrada = new BufferedReader(new FileReader(regresaFileBuscado(nombreArchivo))); // crea un flujo de entrada, busca busca el archivo sino lo crea en Archivos<ArrayList>
             String lectura = entrada.readLine(); // guarda toda la linea en lectura
             while(lectura != null) //  si lectura no tiene un caracter se cierra el ciclo
             {
+
                 ArrayList<String> infolinea = (ArrayList<String>)infoaArrayList(lectura).clone(); //copia el ArrayList de toda la informacion a uno final
-                switch(archivo.getName())
+                switch(nombreArchivo + ".txt")
                 {
                     case "Administradores.txt":
                         Administrador administrador = new Administrador();
@@ -181,7 +183,6 @@ public class Manejo_ArchivosTXT{
                         
                 }
                 lectura = entrada.readLine(); // lee la siguiente linea
-                i++;
             }
             entrada.close(); // cierra el flujo de entrada del archivo
         }
@@ -194,6 +195,7 @@ public class Manejo_ArchivosTXT{
             ex.printStackTrace(System.out);
         }
     }
+    
     public static ArrayList<String> infoaArrayList(String cadena)
     {
         // Atributos
@@ -225,5 +227,41 @@ public class Manejo_ArchivosTXT{
             //System.out.println(j);
         }
         return informacion;
+    }
+    public static File regresaFileBuscado(String nombreArchivo)
+    {
+        int i;
+        for( i = 0 ; i < Archivos.size() ; i++)
+        {
+            if(Archivos.get(i).getName().equals(nombreArchivo + ".txt")) // si el nombre del archivo que yo ingrese es igual algun File de los registros predeterminados, que regrese ese FILE
+            {  
+                iniciaDatosATXT(Archivos.get(i)); // Escribe los usuarios predeterminados de este File
+                return Archivos.get(i);
+            }
+            if(Archivos.size()-1 == i) // si no encontro ningun File y lo inicio lo va a crear
+            {
+                creaTXT(nombreArchivo); 
+                //iniciarArchivo(); FALTA INICIAR ARCHIVO NO CREADO
+            }
+        }
+        return Archivos.get(Archivos.size()); // me regresa el File en la posicion del ultimo creado
+    }
+
+    public static String regresaNombreSinTXT(String nombreArchivoTXT)
+    {
+        int i ; // ciclos
+        char letra;
+        StringBuffer palabra = new StringBuffer();
+        for( i = 0 ; i < nombreArchivoTXT.length(); i++)
+        {
+            letra = nombreArchivoTXT.charAt(i);         
+            if(letra != '.')
+                palabra.insert(i,letra);
+            else
+            {
+                return palabra.toString();
+            }
+        }
+        return null;
     }
 }

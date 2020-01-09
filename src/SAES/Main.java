@@ -23,15 +23,13 @@ public class Main {
         plantilla_profesor.create("1", "Ernesto", "Filio", "Lopez", 70 , "Filio", "password",false);
         profesores.add(plantilla_profesor);
             // ARCHIVOS TXT
-        iniciarArchivo("Administradores");
-        iniciarArchivo("Alumnos");       
-        iniciarArchivo("Profesores");
-        regresaInfoTXT(Archivos.get(0)); // recupera toda la info del archivo Administradores en ArrayLists
-       /* for(i = 0 ; i < administradores.size() ; i++)
+        IniciaTXT("Administradores"); // recupera toda la info del archivo Administradores en ArrayLists
+        IniciaTXT("Alumnos");
+        IniciaTXT("Profesores");
+        /* for(i = 0 ; i < administradores.size() ; i++)
         System.out.println(administradores.get(i).getId() + administradores.get(i).nombre + " " + administradores.get(i).a_paterno + administradores.get(i).a_materno
         + administradores.get(i).edad + administradores.get(i).credenciales.user + administradores.get(i).credenciales.password +
         administradores.get(i).Privilegios_Administrativos);*/
-        System.out.println(administradores.size());
         // LAS VENTANAS EMPIEZAN AQUI
         Inicio_Sesion Frame = new Inicio_Sesion();
         Frame.setVisible(true);
