@@ -160,7 +160,6 @@ public class Manejo_ArchivosTXT{
             String lectura = entrada.readLine(); // guarda toda la linea en lectura
             while(lectura != null) //  si lectura no tiene un caracter se cierra el ciclo
             {
-
                 ArrayList<String> infolinea = (ArrayList<String>)infoaArrayList(lectura).clone(); //copia el ArrayList de toda la informacion a uno final
                 switch(nombreArchivo + ".txt")
                 {
@@ -169,7 +168,6 @@ public class Manejo_ArchivosTXT{
                         administrador.create(infolinea.get(0), infolinea.get(1), infolinea.get(2), infolinea.get(3), parseInt(infolinea.get(4)) , infolinea.get(5), infolinea.get(6) , Boolean.valueOf(infolinea.get(7)));
                         administradores.add(administrador);
                         break;
-                        
                     case "Alumnos.txt":
                         Alumno alumno = new Alumno();
                         alumno.create(infolinea.get(0), infolinea.get(1), infolinea.get(2), infolinea.get(3), parseInt(infolinea.get(4)) , infolinea.get(5), infolinea.get(6) , Boolean.valueOf(infolinea.get(7)));
@@ -180,7 +178,6 @@ public class Manejo_ArchivosTXT{
                         profesor.create(infolinea.get(0), infolinea.get(1), infolinea.get(2), infolinea.get(3), parseInt(infolinea.get(4)) , infolinea.get(5), infolinea.get(6) , Boolean.valueOf(infolinea.get(7)));
                         profesores.add(profesor);
                         break;
-                        
                 }
                 lectura = entrada.readLine(); // lee la siguiente linea
             }
@@ -258,9 +255,7 @@ public class Manejo_ArchivosTXT{
             if(letra != '.')
                 palabra.insert(i,letra);
             else
-            {
                 return palabra.toString();
-            }
         }
         return null;
     }
