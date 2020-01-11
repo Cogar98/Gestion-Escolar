@@ -6,13 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-public class Metodos_Alumnos extends Metodos_Abstractos
+public class Metodos_Alumnos
 {
-
-    /**
-     *
-     * @param Alumnos
-     */
     public static void escribeTXT(ArrayList<Alumno> Alumnos)
     {
         try
@@ -37,5 +32,14 @@ public class Metodos_Alumnos extends Metodos_Abstractos
             ex.printStackTrace(System.out);
         }
     }
-    
+    public static Alumno BuscaID(ArrayList<Alumno> Alumnos , ArrayList<String> Lista)
+    {
+        int i;
+        for( i = 0; i < Alumnos.size() ; i++) // Recorre Alumnos
+        {
+            if(Lista.get(0).equals(Alumnos.get(i).getId())) // Lista.get(0) es un ID SIEMPRE
+                return Alumnos.get(i); // si coincide el ID me regresa el objeto alumno
+        }
+        return null; // si no encuentra a nadie es null
+    }    
 }

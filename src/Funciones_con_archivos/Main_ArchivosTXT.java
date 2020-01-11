@@ -3,14 +3,18 @@ package Funciones_con_archivos;
 import Clases.*; // Importa todas las clases
 import static Clases.ArrayLists.*;
 import static Funciones_con_archivos.Metodos_Administradores.escribeTXT;
+import static Funciones_con_archivos.Metodos_Administradores.actualizaDatos;
 import static Funciones_con_archivos.Metodos_Alumnos.escribeTXT;
+import static Funciones_con_archivos.Metodos_Alumnos.BuscaID;
 import static Funciones_con_archivos.Metodos_Profesores.escribeTXT;
+import static Funciones_con_archivos.Metodos_Profesores.BuscaID;
 import java.io.*; // Input / Output para FILE
 import static java.lang.Integer.parseInt;
 import  java.util.ArrayList; 
+import static Funciones_con_archivos.Metodos_Administradores.BuscaPersona;
 
 
-public abstract class Main_ArchivosTXT{
+public class Main_ArchivosTXT{
     //METODOS
     public static void FilesYArrayListPredeterminados()
     {
@@ -104,19 +108,34 @@ public abstract class Main_ArchivosTXT{
                 switch(nombreArchivo + ".txt")
                 {
                     case "Administradores.txt":
-                        Administrador administrador = new Administrador();
-                        administrador.create(infolinea.get(0), infolinea.get(1), infolinea.get(2), infolinea.get(3), parseInt(infolinea.get(4)) , infolinea.get(5), infolinea.get(6) , Boolean.valueOf(infolinea.get(7)));
-                        administradores.add(administrador);
+                        Administrador desconocido = new Administrador(); // para crear un nuevo desconocido
+                        Administrador modificacion = new Administrador(); // para SOLAMENTE modificar datos de un desconocido
+                        desconocido.create(infolinea.get(0), infolinea.get(1), infolinea.get(2), infolinea.get(3), parseInt(infolinea.get(4)) , infolinea.get(5), infolinea.get(6) , Boolean.valueOf(infolinea.get(7)));
+                        if((modificacion = BuscaPersona(administradores,infolinea)) != null) // si encontro a  un desconocido
+                        {   
+                            System.out.println(administradores.size());
+                            System.out.println("SE ENCONTRO A ALGUIEN");
+                            actualizaDatos(modificacion , desconocido); // se modificarán sus datos segun el archivo de texto
+                            System.out.println(administradores.size());
+                        }
+                        else // en caso de NO encontrar un desconocido
+                            administradores.add(desconocido); // se creara un nuevo desconocido
                         break;
                     case "Alumnos.txt":
                         Alumno alumno = new Alumno();
                         alumno.create(infolinea.get(0), infolinea.get(1), infolinea.get(2), infolinea.get(3), parseInt(infolinea.get(4)) , infolinea.get(5), infolinea.get(6) , Boolean.valueOf(infolinea.get(7)));
-                        alumnos.add(alumno);
+                        if(BuscaID(alumnos, infolinea) == null)
+                            alumnos.add(alumno);
+                        else
+                            
                         break;
                     case "Profesores.txt":
                         Profesor profesor = new Profesor();
                         profesor.create(infolinea.get(0), infolinea.get(1), infolinea.get(2), infolinea.get(3), parseInt(infolinea.get(4)) , infolinea.get(5), infolinea.get(6) , Boolean.valueOf(infolinea.get(7)));
-                        profesores.add(profesor);
+                        if(BuscaID(profesores , infolinea) == null)
+                            profesores.add(profesor);
+                        else
+                            
                         break;
                 }
                 i++;
@@ -140,7 +159,6 @@ public abstract class Main_ArchivosTXT{
         ArrayList<String> informacion = new ArrayList<>();
         StringBuffer palabra = new StringBuffer(); // sirve para separar cada palabra
         char letra; // sirve para revisar cada letra
-        String comparar;
         int i = 0, j = 0; // contador que debe llegar hasta el tamaño de la cadena
          // contador j es para las palabras
         while( (cadena != null) &&  (i != cadena.length())) // mientras tenga algo escrito y el contador no llegue al tamaño de la cadena
@@ -169,7 +187,7 @@ public abstract class Main_ArchivosTXT{
     public static File regresaFileBuscado(String nombreArchivo)
     {
         int i;
-        for( i = 0 ; i < Archivos.size() ; i++)
+        for( i = 0 ; i < Archivos.size() ; i++) // recorre los Files -> Flujo de salida
         {
             if(Archivos.get(i).getName().equals(nombreArchivo + ".txt")) // si el nombre del archivo que yo ingrese es igual algun File de los registros predeterminados, que regrese ese FILE
             {  
@@ -199,11 +217,5 @@ public abstract class Main_ArchivosTXT{
                 return palabra.toString();
         }
         return null;
-    }
-    
-    public static Alumno BuscaID()
-    {
-        Alumno alumno = new Alumno();
-        return alumno;
     }
 }

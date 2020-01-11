@@ -6,7 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-public class Metodos_Profesores extends Metodos_Abstractos{
+public class Metodos_Profesores
+{
     public static void escribeTXT(ArrayList<Profesor> Profesores)
     {
         try
@@ -31,5 +32,14 @@ public class Metodos_Profesores extends Metodos_Abstractos{
             ex.printStackTrace(System.out);
         }           
     }    
-    
+    public static Profesor BuscaID(ArrayList<Profesor> Profesores , ArrayList<String> Lista)
+    {
+        int i;
+        for( i = 0; i < Profesores.size() ; i++) // Recorre Profesores
+        {
+            if(Lista.get(0).equals(Profesores.get(i).getId())) // Lista.get(0) es un ID SIEMPRE
+                return Profesores.get(i); // si coincide el ID me regresa el objeto profesor
+        }
+        return null; // si no encuentra a nadie es null
+    }    
 }
